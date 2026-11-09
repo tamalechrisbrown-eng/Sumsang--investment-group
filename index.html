@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sumsang Real Shop - Kikuubo</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial;background:#f0f4f8}
+.header{background:linear-gradient(135deg,#0f0c29,#302b63);color:white;padding:20px;text-align:center}
+.box{max-width:480px;margin:12px auto;background:white;padding:14px;border-radius:14px;box-shadow:0 4px 15px rgba(0,0,0,0.08)}
+.product-card{border:1px solid #e3f0ff;border-radius:14px;overflow:hidden;margin:14px 0;background:white}
+.product-card img{width:100%;height:200px;object-fit:cover}
+.info{padding:12px}
+.price{color:#d63031;font-weight:bold;font-size:18px}
+button{padding:12px;background:#302b63;color:white;border:none;border-radius:10px;font-weight:bold;width:100%;cursor:pointer}
+.btn-sm{padding:8px 12px;width:auto;font-size:13px;margin:3px}
+.cart-bar{position:fixed;bottom:0;left:0;right:0;background:#111;color:white;padding:12px 15px;display:flex;justify-content:space-between;z-index:999}
+.pay-box{background:#fff3cd;border:2px dashed #e17055;padding:14px;border-radius:12px;text-align:center;margin:12px 0}
+input,select,textarea{width:100%;padding:12px;margin:6px 0;border:1px solid #ddd;border-radius:8px}
+.wa-float{position:fixed;bottom:65px;right:15px;background:#25D366;color:white;padding:12px 18px;border-radius:50px;text-decoration:none;font-weight:bold}
+.hidden{display:none}
+</style>
+</head>
+<body>
+
+<div class="header">
+<h2 style="margin:0">SUMSANG REAL SHOP</h2>
+<small>Kikuubo - Kampala | Real Products | Cash & MoMo</small>
+</div>
+
+<div class="box">
+<h3>📦 Available Products</h3>
+
+<div class="product-card">
+<img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=600">
+<div class="info">
+<b>Phone Accessories Kit</b><br><small>Fast charger + USB + earphone</small><br>
+<span class="price">UGX 50,000</span><br>
+<button class="btn-sm" onclick="addToCart('Accessories Kit',50000)">Add to Cart</button>
+<button class="btn-sm" style="background:#00b894" onclick="buyNow('Accessories Kit',50000)">Buy Now</button>
+</div>
+</div>
+
+<div class="product-card">
+<img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=600">
+<div class="info">
+<b>Smart Watch + Earbuds Combo</b><br><small>T800 watch + M10 earbuds</small><br>
+<span class="price">UGX 100,000</span><br>
+<button class="btn-sm" onclick="addToCart('Smart Watch Combo',100000)">Add to Cart</button>
+<button class="btn-sm" style="background:#00b894" onclick="buyNow('Smart Watch Combo',100000)">Buy Now</button>
+</div>
+</div>
+
+<div class="product-card">
+<img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600">
+<div class="info">
+<b>UK Used iPhone 11 - Clean</b><br><small>64GB, battery 85%+</small><br>
+<span class="price">UGX 650,000</span><br>
+<button class="btn-sm" onclick="addToCart('iPhone 11 Used',650000)">Add to Cart</button>
+<button class="btn-sm" style="background:#00b894" onclick="buyNow('iPhone 11 Used',650000)">Buy Now</button>
+</div>
+</div>
+
+<div class="product-card">
+<img src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=600">
+<div class="info">
+<b>Samsung A32 New</b><br><small>Sealed, 128GB</small><br>
+<span class="price">UGX 580,000</span><br>
+<button class="btn-sm" onclick="addToCart('Samsung A32',580000)">Add to Cart</button>
+<button class="btn-sm" style="background:#00b894" onclick="buyNow('Samsung A32',580000)">Buy Now</button>
+</div>
+</div>
+
+<div class="product-card">
+<img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600">
+<div class="info">
+<b>HP Laptop - Core i5</b><br><small>8GB RAM, 256SSD, UK Used</small><br>
+<span class="price">UGX 950,000</span><br>
+<button class="btn-sm" onclick="addToCart('HP Laptop i5',950000)">Add to Cart</button>
+<button class="btn-sm" style="background:#00b894" onclick="buyNow('HP Laptop i5',950000)">Buy Now</button>
+</div>
+</div>
+
+</div>
+
+<div id="checkout" class="box hidden">
+<h3>🛒 Checkout - Deliver in Kampala</h3>
+<div id="cartList"></div>
+<b>Total: UGX <span id="total">0</span></b>
+
+<div class="pay-box">
+<h4 style="margin:0">PAY TO:</h4>
+<b style="font-size:24px;color:#d63031">0761 291 972</b><br>MTN MoMo - SUMSANG<br>
+<small>Send money, then fill form below</small>
+</div>
+
+<input id="cName" placeholder="Your Name">
+<input id="cPhone" placeholder="Your MoMo Number / Contact">
+<input id="cLocation" placeholder="Location - e.g. Wandegeya, Kampala">
+<input id="cTrans" placeholder="MoMo Transaction ID (after sending)">
+<select id="cMethod"><option>MTN MoMo</option><option>Airtel Money</option><option>Cash on Delivery</option></select>
+<textarea id="cNote" placeholder="Extra note"></textarea>
+<button style="background:#00b894" onclick="placeOrder()">Place Order - I Have Paid</button>
+<button style="background:#636e72;margin-top:8px" onclick="document.getElementById('checkout').classList.add('hidden')">Continue Shopping</button>
+</div>
+
+<div id="admin" class="box hidden">
+<h3>ADMIN ORDERS</h3>
+<div id="orderList" style="font-size:12px"></div>
+<button onclick="document.getElementById('admin').classList.add('hidden')">Close</button>
+</div>
+
+<div class="cart-bar">
+<span id="cartCount">🛒 0 items</span>
+<button style="width:auto;padding:6px 14px;background:#00b894" onclick="showCart()">View Cart</button>
+</div>
+
+<a href="https://wa.me/256747550170" class="wa-float">💬 WhatsApp Order</a>
+
+<script>
+let cart=[];
+function addToCart(name,price){cart.push({name,price});updateCart();alert(name+' added')}
+function buyNow(name,price){cart=[{name,price}];showCart()}
+function updateCart(){document.getElementById('cartCount').innerText='🛒 '+cart.length+' items - UGX '+cart.reduce((a,b)=>a+b.price,0).toLocaleString()}
+function showCart(){if(cart.length==0){alert('Cart empty');return}document.getElementById('checkout').classList.remove('hidden');let list=document.getElementById('cartList');list.innerHTML=cart.map((c,i)=>`${c.name} - ${c.price.toLocaleString()} <a href="#" onclick="removeItem(${i})">remove</a><br>`).join('');document.getElementById('total').innerText=cart.reduce((a,b)=>a+b.price,0).toLocaleString();window.scrollTo(0,document.getElementById('checkout').offsetTop)}
+function removeItem(i){cart.splice(i,1);updateCart();showCart()}
+function placeOrder(){let name=document.getElementById('cName').value;let phone=document.getElementById('cPhone').value;let loc=document.getElementById('cLocation').value;let trans=document.getElementById('cTrans').value;let method=document.getElementById('cMethod').value;if(!name||!phone||!loc){alert('Fill name, phone, location');return}let orders=JSON.parse(localStorage.getItem('orders')||'[]');orders.push({name,phone,loc,trans,method,items:[...cart],total:cart.reduce((a,b)=>a+b.price,0),date:new Date().toLocaleString()});localStorage.setItem('orders',JSON.stringify(orders));alert('Order received! We will call you to deliver in Kampala. Save TID: '+trans);cart=[];updateCart();document.getElementById('checkout').classList.add('hidden');let msg=`Hello Sumsang, I ordered ${orders[orders.length-1].items.map(i=>i.name).join(', ')} Total ${orders[orders.length-1].total} UGX. My loc: ${loc} TID: ${trans}`;window.open('https://wa.me/256747550170?text='+encodeURIComponent(msg))}
+// admin login type admin in name field
+document.getElementById('cName').addEventListener('change',function(){if(this.value==='admin'){let orders=JSON.parse(localStorage.getItem('orders')||'[]');document.getElementById('admin').classList.remove('hidden');document.getElementById('orderList').innerHTML=orders.map(o=>`<div style="border-bottom:1px solid #ddd;padding:8px 0"><b>${o.name}</b> ${o.phone}<br>${o.items.map(i=>i.name).join(', ')}<br>Total: ${o.total} - ${o.method} TID:${o.trans}<br>Loc: ${o.loc}<br>${o.date}<br><a href="https://wa.me/${o.phone.replace(/^0/,'256')}">Call/WA</a></div>`).join('')||'No orders yet'}})
+</script>
+</body>
+  </html>
